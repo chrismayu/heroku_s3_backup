@@ -36,7 +36,7 @@ class HerokuS3Backup
       
       name = "#{app}#{Time.now.strftime(timestamp)}.sql"
 
-      db = ENV['DATABASE_URL'].match(/postgres:\/\/([^:]+):([^@]+)@([^\/]+)\/(.+)/)
+      db = ENV['DATABASE_URL'].match(/postgres:\/\/([^:]+):([^@]+)@([^\/]+)\:[0-9]*\/(.+)/)
       system "PGPASSWORD=#{db[2]} pg_dump -Fc -i --username=#{db[1]} --host=#{db[3]} #{db[4]} > tmp/#{name}"
 
       puts "gzipping sql file..."
