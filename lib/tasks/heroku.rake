@@ -1,6 +1,9 @@
 namespace :heroku do
-  desc "Example showing PostgreSQL database backups from Heroku to Amazon S3"
+  desc "Backup Database, gzip and upload to Amazon S3"
   task :backup => :environment do
-    HerokuS3Backup.backup
+
+    job = HerokuS3Backup::BackupJob.new
+    job.create_backup
+
   end
 end
